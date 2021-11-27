@@ -1,0 +1,5 @@
+>npm install
+> npm start
+
+-----
+Edit values in table by clicking and focus out
