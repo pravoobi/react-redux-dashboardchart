@@ -85,15 +85,6 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
     headerGroups,
     prepareRow,
     page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
   } = useTable(
     {
       columns,
@@ -163,7 +154,7 @@ function App(props) {
         
       },
     ],
-    []
+    [props.bar]
   );
   const makeData = () => {
       let makeData = [];
@@ -179,18 +170,10 @@ function App(props) {
   
 
   const [data, setData] = React.useState(() => makeData());
-  console.log('table', props.chartItem);
-  const [originalData] = React.useState(data)
   const [skipPageReset, setSkipPageReset] = React.useState(false)
 
-  // We need to keep the table from resetting the pageIndex when we
-  // Update data. So we can keep track of that flag with a ref.
-
-  // When our cell renderer calls updateMyData, we'll use
-  // the rowIndex, columnId and new value to update the
-  // original data
   const updateMyData = (rowIndex, columnId, value) => {
-    // We also turn on the flag to not reset the page
+
     setSkipPageReset(true)
     setData(old =>
       old.map((row, index) => {
@@ -207,16 +190,10 @@ function App(props) {
     console.log('update', props.chartIndex);
   }
 
-  // After data chagnes, we turn the flag back off
-  // so that if data actually changes when we're not
-  // editing it, the page is reset
+
   React.useEffect(() => {
     setSkipPageReset(false)
   }, [data])
-
-  // Let's add a data resetter/randomizer to help
-  // illustrate that flow...
-  const resetData = () => setData(originalData)
 
   return (
     <Styles>

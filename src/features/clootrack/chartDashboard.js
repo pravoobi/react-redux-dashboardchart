@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {fetchChartData, selectChartData, updateChart} from './chartsSlice';
 import styles from './Chart.module.css';
@@ -13,7 +13,6 @@ export default function Clootrack() {
       dispatch(fetchChartData())
   }, [dispatch])
   const chart = useSelector(selectChartData);
-    console.log('chart',chart);
 
     function updateData(chartIndex, valueIndex, value){
       dispatch(updateChart({chartIndex, valueIndex, value}));
